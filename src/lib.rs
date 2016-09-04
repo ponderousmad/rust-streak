@@ -1,8 +1,26 @@
 mod point;
 
+extern crate cgmath;
+
 #[cfg(test)]
 mod tests {
     use point::Point;
+
+    use std::f64;
+
+    use cgmath::Matrix4;
+    use cgmath::Vector4;
+    use cgmath::Transform;
+
+    type Mat4 = Matrix4<f64>;
+    type Vec4 = Vector4<f64>;
+
+    #[test]
+    fn apply_matrix() {
+        let p = Vec4::new(1.0, 2.0, 3.0, 4.0);
+        let i = Mat4::one();
+        assert!(i * p == p);
+    }
 
     #[test]
     fn it_works() {
