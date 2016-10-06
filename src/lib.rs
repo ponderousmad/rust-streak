@@ -17,7 +17,6 @@ mod tests {
 
     type Mat4 = Matrix4<f64>;
     type Vec4 = Vector4<f64>;
-    type P3 = Point3<f64>;
 
     #[test]
     fn apply_matrix() {
@@ -36,8 +35,8 @@ mod tests {
 
     #[test]
     fn sphere_volume() {
-        let center = P3::new(1.0, 1.0, 1.0);
-        let s = Sphere::new(center, 10.0);
+        let center = Point3::<f64>::new(1.0, 1.0, 1.0);
+        let s = Sphere::<f64>::new(center, 10.0);
         assert!(s.volume() == (4000.0 * f64::consts::PI / 3.0));
     }
 }
