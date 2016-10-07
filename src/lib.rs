@@ -1,5 +1,6 @@
 pub mod point;
 pub mod sphere;
+pub mod camera;
 
 extern crate cgmath;
 
@@ -7,12 +8,15 @@ extern crate cgmath;
 mod tests {
     use point::Point;
     use sphere::Sphere;
+    use camera::Camera;
 
     use std::f64;
 
     use cgmath::Matrix4;
     use cgmath::Vector4;
+    use cgmath::Vector3;
     use cgmath::Point3;
+    use cgmath::Quaternion;
     use cgmath::Transform;
 
     type Mat4 = Matrix4<f64>;
@@ -38,5 +42,13 @@ mod tests {
         let center = Point3::<f64>::new(1.0, 1.0, 1.0);
         let s = Sphere::<f64>::new(center, 10.0);
         assert!(s.volume() == (4000.0 * f64::consts::PI / 3.0));
+    }
+
+    #[test]
+    fn camera() {
+        let position = Point3::<f64>::new(1.0, 1.0, 1.0);
+        let c = Camera::<f64>::new(position, Quaternion::<f64>::new(1.0, 0.0, 0.0, 0.0), 50.0);
+        let up = c.up();
+        assert!(up == Vector3::<f64>::unit_y());
     }
 }
