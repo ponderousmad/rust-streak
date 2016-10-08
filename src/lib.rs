@@ -3,6 +3,7 @@ pub mod sphere;
 pub mod camera;
 
 extern crate cgmath;
+extern crate num;
 
 #[cfg(test)]
 mod tests {
@@ -18,6 +19,7 @@ mod tests {
     use cgmath::Point3;
     use cgmath::Quaternion;
     use cgmath::Transform;
+    use cgmath::ApproxEq;
 
     type Mat4 = Matrix4<f64>;
     type Vec4 = Vector4<f64>;
@@ -47,8 +49,12 @@ mod tests {
     #[test]
     fn camera() {
         let position = Point3::<f64>::new(1.0, 1.0, 1.0);
-        let c = Camera::<f64>::new(position, Quaternion::<f64>::new(1.0, 0.0, 0.0, 0.0), 50.0);
+        let c = Camera::<f64>::new(position, Quaternion::<f64>::new(1.0, 0.0, 0.0, 0.0), f64::consts::PI / 2.0);
         let up = c.up();
         assert!(up == Vector3::<f64>::unit_y());
+
+        let forward = c.ray(0.0, 0.0);
+        println!("Forward: {}, {}, {}", forward.x, forward.y, forward.z);
+        assert!(forward.approx_eq(&Vector3::<f64>::unit_z()));
     }
 }
